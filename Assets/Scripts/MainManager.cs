@@ -14,11 +14,15 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public Text highScoreText;
     public GameObject GameOverText;
-    
+
+
     private bool m_Started = false;
     private int m_Points;
     private int highScore = 0;
+    private string userName;
     
+
+
     private bool m_GameOver = false;
 
     
@@ -26,7 +30,8 @@ public class MainManager : MonoBehaviour
     void Start()
     {
         LoadScore();
-        highScoreText.text = $"HighScore : {highScore}";
+        
+        highScoreText.text = $"HighScore : {userName} {highScore}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -88,6 +93,7 @@ public class MainManager : MonoBehaviour
     class SaveData
     {
         public int highScore;
+        public string userName;
     }
 
 
@@ -95,6 +101,7 @@ public class MainManager : MonoBehaviour
     {
         SaveData data = new SaveData();
         data.highScore = highScore;
+        data.userName = userName;
 
         string json = JsonUtility.ToJson(data);
 
@@ -110,6 +117,9 @@ public class MainManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             highScore = data.highScore;
+            userName = data.userName;
         }
     }
+
+
 }
