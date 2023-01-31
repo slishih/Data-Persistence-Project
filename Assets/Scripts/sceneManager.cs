@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.IO;
 
 public class sceneManager : MonoBehaviour
@@ -9,7 +11,7 @@ public class sceneManager : MonoBehaviour
 
     public static sceneManager Instance { get; private set; }
 
-    public string userName; // new variable declared
+    public string userNameInput; // new variable declared
 
     private void Awake()
     {
@@ -23,12 +25,8 @@ public class sceneManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        getUserName();
-    }
-
-    private void getUserName() 
-    { 
 
     }
- 
+
+
 }

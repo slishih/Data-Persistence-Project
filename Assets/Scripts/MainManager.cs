@@ -19,19 +19,16 @@ public class MainManager : MonoBehaviour
     private bool m_Started = false;
     private int m_Points;
     private int highScore = 0;
-    private string userName;
+    public string userName = sceneManager.Instance.userNameInput;
+    private string HSuserName = "None";
     
-
-
     private bool m_GameOver = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
         LoadScore();
-        
-        highScoreText.text = $"HighScore : {userName} {highScore}";
+        highScoreText.text = $": {HSuserName} {highScore} :";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -85,6 +82,9 @@ public class MainManager : MonoBehaviour
         if (m_Points > highScore)
         {
             highScore = m_Points;
+            HSuserName = userName;
+            Debug.Log(HSuserName);
+            Debug.Log(highScore);
             SaveScore();
         }
     }
@@ -93,7 +93,7 @@ public class MainManager : MonoBehaviour
     class SaveData
     {
         public int highScore;
-        public string userName;
+        public string HSuserName;
     }
 
 
@@ -101,7 +101,7 @@ public class MainManager : MonoBehaviour
     {
         SaveData data = new SaveData();
         data.highScore = highScore;
-        data.userName = userName;
+        data.HSuserName = HSuserName;
 
         string json = JsonUtility.ToJson(data);
 
@@ -117,7 +117,7 @@ public class MainManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             highScore = data.highScore;
-            userName = data.userName;
+            HSuserName = data.HSuserName;
         }
     }
 
